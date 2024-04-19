@@ -1,0 +1,82 @@
+﻿@model List<CasoEstudio2Web.Entidades.Casa>
+
+@{
+    ViewBag.Title = "ConsultarCasas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Casas</h6>
+    </div>
+    <div class="card-body">
+        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap5">
+            <div class="col-sm-12">
+                <div class="col-sm-12">
+
+                    @if (ViewBag.MsjPantalla != null)
+                    {
+                        <div class="alert alert-warning" role="alert" style="text-align:center">
+                            @ViewBag.MsjPantalla
+                        </div>
+                    }
+
+                    <table id="Tabla" class="table table-striped" style="width:100%">
+                        <thead>
+                            <tr role="row">
+                                <th>Código</th>
+                                <th>Descripción</th>
+                                <th>Precio</th>
+                                <th>Cliente</th>
+                                <th>Estado</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="odd">
+                                    <td>@item.IdCasa</td>
+                                    <td>@item.DescripcionCasa</td>
+                                    <td>@item.PrecioCasa</td>
+                                    <td>@item.UsuarioAlquiler</td>
+                                    <td>@item.Estado</td>
+                                    <td>@item.FechaAlquiler</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#Tabla').DataTable({
+            lengthMenu: [2, 4, 6, 8],
+
+            columnDefs: [
+                {
+                    className: "dt-center",
+                    targets: "_all"
+                }
+            ],
+
+            language: {
+                lengthMenu: "Mostrar _MENU_ casas por página",
+                zeroRecords: "Ninguna casa encontrada",
+                info: "Estás visualizando _START_ a _END_ casas de un total de _TOTAL_ casas",
+                infoEmpty: "Ninguna casa encontrad",
+                infoFiltered: "(Filtrados desde _MAX_ casas totales)",
+                search: "Buscar: ",
+                loadingRecords: "Cargando casas..."
+            },
+
+            ordering: false
+        });
+    });
+</script>

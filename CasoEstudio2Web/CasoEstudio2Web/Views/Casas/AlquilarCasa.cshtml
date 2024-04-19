@@ -1,0 +1,63 @@
+﻿@model CasoEstudio2Web.Entidades.Casa
+
+@{
+    ViewBag.Title = "AlquilarCasa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Alquilar casa</h6>
+    </div>
+
+    <div class="container">
+
+        @if (ViewBag.MsjPantalla != null)
+        {
+            <div class="alert alert-warning" role="alert" style="text-align:center">
+                @ViewBag.MsjPantalla
+            </div>
+        }
+
+        @using (Html.BeginForm("AlquilarCasa", "Casas", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            <div class="row align-items-start mt-4">
+                <div class="form-group col-md-2 ms-5">
+                    @Html.Label("Casa")
+                </div>
+
+                <div class="form-group col-md-6">
+                    @Html.DropDownListFor(m => m.IdCasa, ViewBag.ListaCasas as List<SelectListItem>, new { @class = "form-control form-control-user", @required = "true", @onchange = "ConsultarPrecio()" })
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="form-group col-md-2 ms-5">
+                    @Html.Label("Precio")
+                </div>
+
+                <div class="form-group col-sm-6">
+                    @Html.TextBoxFor(m => m.PrecioCasa, new { @class = "form-control form-control-user", @type = "number", @placeholder = "Precio", @required = "true", @readonly = true })
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="form-group col-md-2 ms-5">
+                    @Html.Label("Cliente")
+                </div>
+
+                <div class="form-group col-sm-6">
+                    @Html.TextBoxFor(m => m.UsuarioAlquiler, new { @class = "form-control form-control-user", @type = "text", @placeholder = "Cliente", @required = "true" })
+                </div>
+            </div>
+
+            <div class="row justify-content-md-center my-5">
+                <div class="d-grid gap-2 col-2 mx-auto">
+                    <input type="submit" class="btn btn-primary btn-user btn-block" value="Alquilar">
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script src="~/Estilos/js/ConsultarCasa.js"></script>
